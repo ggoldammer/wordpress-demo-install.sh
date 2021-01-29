@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Provide the following variables below to customize to your installation
-SITE_DEMO_URL="https://YOUR-HOST-HERE.com/wordpress-demo-file.tgz"
-TGZ_FILE_NAME="wordpress-demo-file.tgz"
-MYSQL_FILE_NAME="wordpress-database.sql"
-WP_ADMIN_EMAIL="testing@testing.com"
+SITE_DEMO_URL="https://YOUR-HOST-HERE.com/YOUR-FILE-NAME.tgz"
+TGZ_FILE_NAME="YOUR-FILE-NAME.tgz"
+MYSQL_FILE_NAME="YOUR-DATABASE-NAME.sql"
+WP_ADMIN_USER="USERNAME"
+WP_ADMIN_EMAIL="YOUR-EMAIL@test.com"
 
 # Create the development directory inside of ~/public_html
 get_dev_dir() {
@@ -77,7 +78,7 @@ replace_htaccess() {
 # Create a new user
 create_user() {
     randnum=$(tr </dev/urandom -dc 0-9 | head -c3)
-    user="supportadmin_${randnum}"
+    user=${WP_ADMIN_USER}
     pass=$(tr </dev/urandom -dc _A-Z-a-z-0-9 | head -c12)
     wp user create $user $WP_ADMIN_EMAIL --role=administrator --user_pass=$pass --path=$DESTINATION
     wp user delete delete-me --path=$DESTINATION --yes
